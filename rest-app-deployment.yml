@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-app
+  labels:
+    app: djan-rest
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: djan-rest
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: djan-rest
+    spec:
+      containers:
+      - image: docker.io/library/djan-rest:latest
+        name: djan-rest
+
+#---
+#apiVersion: v1
+#data:
+#  MYSQL_PASSWORD: PASSWORD
+#kind: Secret
+#metadata:
+#  name: djan-rest
+#---
+#apiVersion: v1
+#data:
+#  MYSQL_DATABASE: test_db
+#  MYSQL_HOST: mysql.database.svc.cluster.local
+#  MYSQL_USER: sample_app
+#kind: ConfigMap
+#metadata:
+#  name: djan-rest
