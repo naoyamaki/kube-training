@@ -16,8 +16,10 @@ spec:
         app: djan-rest
     spec:
       containers:
-      - image: docker.io/library/djan-rest:latest
+      - image: djan-rest:v1
         name: djan-rest
+        ports:
+          - containerPort: 8000
 
 #---
 #apiVersion: v1

@@ -1,10 +1,10 @@
 #!/bin/zsh
 
 DIR=$(cd $(dirname $0)/; pwd)
-
+TAG=${2:-latest}
 build_image_and_minikube_load () {
   docker build -t $1 $DIR/$1/.
-  minikube image load $1:latest
+  minikube image load $1:$TAG
 }
 
 if [ "$1" = "all" ]; then
