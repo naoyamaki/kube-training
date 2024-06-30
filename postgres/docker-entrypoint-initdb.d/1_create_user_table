@@ -1,0 +1,82 @@
+DROP TABLE IF EXISTS public.m_user_status;
+DROP TABLE IF EXISTS public.m_post_status;
+DROP TABLE IF EXISTS public.user;
+DROP TABLE IF EXISTS public.user_detail;
+DROP TABLE IF EXISTS public.post;
+DROP TABLE IF EXISTS public.favorite;
+
+/*----------*/
+
+CREATE TABLE public.m_user_status (
+  user_status_id int2 NOT NULL,
+  status_name varchar(256) NOT NULL,
+  is_active boolean DEFAULT true,
+  CONSTRAINT user_status_id_pk PRIMARY KEY (user_status_id)
+);
+
+CREATE TABLE public.m_post_status (
+  post_status_id int2 NOT NULL,
+  status_name varchar(256) NOT NULL,
+  is_active boolean DEFAULT true,
+  CONSTRAINT post_status_id_pk PRIMARY KEY (post_status_id)
+);
+
+/*----------*/
+
+CREATE TABLE public.user (
+  user_id SERIAL NOT NULL,
+  email varchar(256) NOT NULL,
+  password varchar(128) NOT NULL,
+  name varchar(128),
+	user_status_id_fk int2 NOT NULL DEFAULT 1,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_by varchar(128) NOT NULL,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_by varchar(128) NOT NULL,
+  CONSTRAINT user_id_pk PRIMARY KEY (user_id),
+  CONSTRAINT email_unique UNIQUE (email),
+  FOREIGN KEY (user_status_id_fk) REFERENCES public.m_user_status(user_status_id)
+);
+
+CREATE TABLE public.user_detail (
+  user_id_fk int NOT NULL,
+  birthday date,
+  sex int2,
+  FOREIGN KEY (user_id_fk) REFERENCES public.user(user_id)
+);
+
+CREATE TABLE public.post (
+  post_id SERIAL NOT NULL,
+  user_id_fk int NOT NULL,
+	post_status_id_fk int2 NOT NULL DEFAULT 1,
+  title varchar(512) NOT NULL,
+  body text,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_by varchar(128) NOT NULL,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_by varchar(128) NOT NULL,
+  CONSTRAINT post_id_pk PRIMARY KEY (post_id),
+  FOREIGN KEY (user_id_fk) REFERENCES public.user(user_id),
+  FOREIGN KEY (post_status_id_fk) REFERENCES public.m_post_status(post_status_id)
+);
+
+CREATE TABLE public.favorite (
+  post_id_fk int NOT NULL,
+  user_id_fk int NOT NULL,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (post_id_fk) REFERENCES public.post(post_id),
+  FOREIGN KEY (user_id_fk) REFERENCES public.user(user_id)
+);
+
+/*----------*/
+
+INSERT INTO public.m_user_status (user_status_id, status_name)
+VALUES
+  (1, 'active'),
+  (2, 'withdrawn');
+
+INSERT INTO public.m_post_status (post_status_id, status_name)
+VALUES
+  (1, 'edit'),
+  (2, 'publish'),
+  (3, 'deleted');
