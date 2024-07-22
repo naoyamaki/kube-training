@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = "0.5"
+axum = "0.7.5"
 tokio = { version = "1", features = ["full"] }
-sea-orm = { version = "0.12", features = [ sqlx-postgres, runtime-tokio-native-tls, "macros" ] }
+sea-orm = { version = "0.12", features = [ "sqlx-postgres", "runtime-tokio-native-tls", "macros" ] }
