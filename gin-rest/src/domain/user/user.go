@@ -22,6 +22,20 @@ var (
 	nameLengthErr  = "名前の長さが正しくないです"
 )
 
+func NewUser(
+	id string,
+	email string,
+	name string,
+	user_status_id_fk int,
+) (*User, *string) {
+	return newUser(
+		id,
+		email,
+		name,
+		user_status_id_fk,
+	)
+}
+
 func newUser(
 	id string,
 	email string,

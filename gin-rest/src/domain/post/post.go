@@ -19,6 +19,22 @@ var (
 	bodyLengthErr  = "本文の長さが正しくないです"
 )
 
+func NewPost(
+	id string,
+	userId string,
+	postStatusId int,
+	title string,
+	body string,
+) (*Post, *string) {
+	return newPost(
+		id,
+		userId,
+		postStatusId,
+		title,
+		body,
+	)
+}
+
 func newPost(
 	id string,
 	userId string,

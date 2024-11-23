@@ -18,6 +18,8 @@ func main() {
 		fmt.Println(err)
 	}
 
+	// TODO: infrastracture importしてここでnewする
+	// db.Newpostgres(conf.DB)
 	router := gin.Default()
 	controller.RegisterUserRoutes(router)
 	controller.RegisterPostRoutes(router)
