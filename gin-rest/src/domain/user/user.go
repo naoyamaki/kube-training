@@ -7,10 +7,10 @@ import (
 )
 
 type User struct {
-	id                string
-	email             string
-	name              string
-	user_status_id_fk int
+	Id                string
+	Email             string
+	Name              string
+	User_status_id_fk int
 }
 
 var (
@@ -54,9 +54,9 @@ func newUser(
 		return nil, &nameLengthErr
 	}
 	return &User{
-		id:                id,
-		email:             email,
-		name:              name,
-		user_status_id_fk: user_status_id_fk,
+		Id:                id,
+		Email:             email,
+		Name:              name,
+		User_status_id_fk: user_status_id_fk,
 	}, nil
 }

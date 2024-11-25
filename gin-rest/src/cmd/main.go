@@ -18,11 +18,13 @@ func main() {
 		fmt.Println(err)
 	}
 
+	userController := controller.NewUserController()
+	postController := controller.NewPostController()
 	// TODO: infrastracture importしてここでnewする
 	// db.Newpostgres(conf.DB)
 	router := gin.Default()
-	controller.RegisterUserRoutes(router)
-	controller.RegisterPostRoutes(router)
+	userController.RegisterUserRoutes(router)
+	postController.RegisterPostRoutes(router)
 
 	fmt.Println("start up " + cfg.Host + cfg.Port)
 	router.Run(cfg.Port)

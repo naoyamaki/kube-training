@@ -3,11 +3,11 @@ package post
 import "unicode/utf8"
 
 type Post struct {
-	id           string
-	userId       string
-	postStatusId int
-	title        string
-	body         string
+	Id           string
+	UserId       string
+	PostStatusId int
+	Title        string
+	Body         string
 }
 
 var (
@@ -51,10 +51,10 @@ func newPost(
 	}
 
 	return &Post{
-		id:           id,
-		userId:       userId,
-		postStatusId: postStatusId,
-		title:        title,
-		body:         body,
+		Id:           id,
+		UserId:       userId,
+		PostStatusId: postStatusId,
+		Title:        title,
+		Body:         body,
 	}, nil
 }
