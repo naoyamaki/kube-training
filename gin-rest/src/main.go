@@ -6,6 +6,8 @@ import (
 	"github.com/caarlos0/env"
 	"github.com/gin-gonic/gin"
 	"github.com/naoyamaki/controller"
+	"github.com/naoyamaki/infrastructure/repository"
+	"github.com/naoyamaki/usecase"
 )
 
 func main() {
@@ -17,11 +19,17 @@ func main() {
 	if err := env.Parse(&cfg); err != nil {
 		fmt.Println(err)
 	}
-
-	userController := controller.NewUserController()
-	postController := controller.NewPostController()
 	// TODO: infrastracture importしてここでnewする
 	// db.Newpostgres(conf.DB)
+
+	userRepository := repository.NewUserRepository()
+	userUsecase := usecase.NewUserUsecase(userRepository)
+	userController := controller.NewUserController(userUsecase)
+
+	postRepository := repository.NewPostRepository()
+	postUsecase := usecase.NewPostUsecase(postRepository)
+	postController := controller.NewPostController(postUsecase)
+
 	router := gin.Default()
 	userController.RegisterUserRoutes(router)
 	postController.RegisterPostRoutes(router)

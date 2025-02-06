@@ -15,27 +15,24 @@ func NewPostController(uc *usecase.PostUsecase) *PostController {
 }
 
 func (ctrl *PostController) RegisterPostRoutes(router *gin.Engine) {
-	postGroup := router.Group("/post")
-	{
-		postGroup.GET("/", func(c *gin.Context) {
-			statusCode, response := ctrl.postUsecase.GetAllPosts(c)
-			c.JSON(statusCode, response)
-		})
-		postGroup.POST("/", func(c *gin.Context) {
-			statusCode, response := ctrl.postUsecase.CreatePost(c)
-			c.JSON(statusCode, response)
-		})
-		postGroup.GET("/:id", func(c *gin.Context) {
-			statusCode, response := ctrl.postUsecase.GetPostByID(c)
-			c.JSON(statusCode, response)
-		})
-		postGroup.DELETE("/:id", func(c *gin.Context) {
-			statusCode, response := ctrl.postUsecase.DeletePost(c)
-			c.JSON(statusCode, response)
-		})
-		postGroup.PATCH("/:id", func(c *gin.Context) {
-			statusCode, response := ctrl.postUsecase.EditPost(c)
-			c.JSON(statusCode, response)
-		})
-	}
+	router.GET("/post", func(c *gin.Context) {
+		statusCode, response := ctrl.postUsecase.GetAllPosts(c)
+		c.JSON(statusCode, response)
+	})
+	router.POST("/post", func(c *gin.Context) {
+		statusCode, response := ctrl.postUsecase.CreatePost(c)
+		c.JSON(statusCode, response)
+	})
+	router.GET("/post/:id", func(c *gin.Context) {
+		statusCode, response := ctrl.postUsecase.GetPostByID(c)
+		c.JSON(statusCode, response)
+	})
+	router.DELETE("/post/:id", func(c *gin.Context) {
+		statusCode, response := ctrl.postUsecase.DeletePost(c)
+		c.JSON(statusCode, response)
+	})
+	router.PATCH("/post/:id", func(c *gin.Context) {
+		statusCode, response := ctrl.postUsecase.EditPost(c)
+		c.JSON(statusCode, response)
+	})
 }

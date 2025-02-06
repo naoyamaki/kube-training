@@ -14,7 +14,7 @@ type User struct {
 }
 
 var (
-	emailPattern   = `^[a-Z0-9_.+-]+@([a-Z0-9][a-Z0-9-]*[a-Z0-9]*\.)+[a-Z]{2,}$`
+	emailPattern   = `^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$`
 	emailLengthMax = 254
 	emailErr       = "メールの形式が正しくないです"
 	nameLengthMin  = 2
