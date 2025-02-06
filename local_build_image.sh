@@ -8,9 +8,8 @@ build_image_and_minikube_load () {
 }
 
 if [ "$1" = "all" ]; then
-  build_image_and_minikube_load djan-rest
-  build_image_and_minikube_load lara-graph
-  build_image_and_minikube_load rail-grpc
+  build_image_and_minikube_load golan-grpc
+  build_image_and_minikube_load go-rest
   build_image_and_minikube_load nginx-temp
   exit 0
 fi
