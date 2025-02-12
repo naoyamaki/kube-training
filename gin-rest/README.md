@@ -8,7 +8,7 @@ src配下にて
 `go mod tidy`
 
 ビルド  
-`go build ./cmd/main.go`
+`go build ./main.go`
 
 ローカル実行  
-`go run ./cmd/main.go`
+`go run ./main.go`
