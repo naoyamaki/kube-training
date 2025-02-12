@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: nginx-temp-svc
+  labels:
+    app: nginx-temp-svc
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx-temp
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  nginx-temp-deployment
+  namespace: default
+  labels:
+    app:  nginx-temp-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-temp
+  template:
+    metadata:
+      labels:
+        app: nginx-temp
+    spec:
+      containers:
+      - name: nginx-temp
+        image: nginx-temp:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-src
+          mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html-src
+        persistentVolumeClaim:
+          claimName: nginx-temp-pvc
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-temp-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 16Mi
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nginx-temp-pv
+spec:
+  capacity:
+    storage: 16Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /path/to/your/src

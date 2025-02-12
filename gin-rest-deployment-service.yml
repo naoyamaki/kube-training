@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: gin-rest-svc
+  labels:
+    app: gin-rest-svc
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: gin-rest
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gin-rest-deployment
+  namespace: default
+  labels:
+    app: gin-rest-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gin-rest
+  template:
+    metadata:
+      labels:
+        app: gin-rest
+    spec:
+      containers:
+      - image: gin-rest:latest
+        name: gin-rest
+        ports:
+          - containerPort: 8081
+      restartPolicy: Always
