@@ -3,7 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/naoyamaki/usecase"
+	"gin-rest/usecase"
 )
 
 type UserController struct {

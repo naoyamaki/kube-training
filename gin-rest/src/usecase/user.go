@@ -3,7 +3,7 @@ package usecase
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/naoyamaki/domain/user"
+	"gin-rest/domain/user"
 )
 
 type UserUsecase struct {

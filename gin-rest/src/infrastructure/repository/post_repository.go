@@ -3,7 +3,7 @@ package repository
 import (
 	"fmt"
 
-	"github.com/naoyamaki/domain/post"
+	"gin-rest/domain/post"
 )
 
 type postRepository struct{}

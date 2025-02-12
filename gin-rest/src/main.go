@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 
+	"gin-rest/controller"
+	"gin-rest/infrastructure/repository"
+	"gin-rest/usecase"
+
 	"github.com/caarlos0/env"
 	"github.com/gin-gonic/gin"
-	"github.com/naoyamaki/controller"
-	"github.com/naoyamaki/infrastructure/repository"
-	"github.com/naoyamaki/usecase"
 )
 
 func main() {
