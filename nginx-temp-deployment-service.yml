@@ -34,15 +34,16 @@ spec:
         app: nginx-temp
     spec:
       containers:
-      - name: nginx-temp
-        image: nginx-temp:latest
+      - image: nginx-temp
+        name: nginx-temp
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+          - containerPort: 80
         volumeMounts:
         - name: html-src
           mountPath: /usr/share/nginx/html
       volumes:
-        - name: html-src
+      - name: html-src
         persistentVolumeClaim:
           claimName: nginx-temp-pvc
       restartPolicy: Always
@@ -73,4 +74,4 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /path/to/your/src
+    path: /mnt/nginx-temp

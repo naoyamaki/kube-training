@@ -34,8 +34,9 @@ spec:
         app: gin-rest
     spec:
       containers:
-      - image: gin-rest:latest
+      - image: gin-rest
         name: gin-rest
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8081
       restartPolicy: Always

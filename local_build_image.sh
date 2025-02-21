@@ -2,24 +2,25 @@
 
 DIR=$(cd $(dirname $0)/; pwd)
 TAG=${2:-latest}
-build_image_and_minikube_load () {
-  docker build -t $1 $DIR/$1/.
-  minikube image load $1:$TAG
+
+build_image () {
+  docker build -t $1:$TAG $DIR/$1/.
 }
 
-if [ "$1" = "all" ]; then
-  build_image_and_minikube_load golan-grpc
-  build_image_and_minikube_load go-rest
-  build_image_and_minikube_load nginx-temp
-  exit 0
-fi
+eval $(minikube -p minikube docker-env)
 
-if [ ! -d $DIR/$1 ] || [ "$1" = "" ]; then
+if [ "$1" = "all" ]; then
+#  build_image golan-grpc
+  build_image gin-rest
+  build_image nginx-temp
+  build_image nginx-proxy
+  exit 0
+elif [ ! -d $DIR/$1 ] || [ "$1" = "" ]; then
   echo 'ディレクトリ名を引数に入れてください'
   exit 1
+else
+  build_image $1
 fi
-
-build_image_and_minikube_load $1
 
 if [ $? -ne 0 ]; then
   echo $1'のbuildに失敗しました'
